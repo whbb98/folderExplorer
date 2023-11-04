@@ -1,0 +1,26 @@
+Home: {
+    Documents: ["document1.pdf", "document2.pdf"],
+        Photos: {
+        summer: ["photo1.jpg", "photo2.jpg"],
+            winter: ["photo3.jpg", "photo4.jpg"],
+    },
+    Music: {
+        rock: ["song1.mp3", "song2.mp3"],
+            pop: ["song3.mp3", "song4.mp3"],
+    },
+    Video: { },
+},
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++
+
+printDir(folder) {
+    for (const item in folder) {
+        if (Array.isArray(folder[item])) {
+            // console.log(item + ": " + folder[item]);
+            console.log(Object.values(item))
+        } else {
+            console.log(item + ": ");
+            this.printDir(folder[item]); //recursive call
+        }
+    }
+},
