@@ -9,7 +9,7 @@
         <li>{{ item }}</li>
       </div>
     </div>
-    <div v-else v-for="(item, key) in folder">
+    <div v-else-if="!isObjEmpty(folder)" v-for="(item, key) in folder">
       <folder-item :isOpen="!isCollapsed" :folder="item" :name="key" />
     </div>
   </ul>
@@ -35,23 +35,11 @@ export default {
     };
   },
   methods: {
+    isObjEmpty(obj) {
+      return Object.keys(obj).length <= 0;
+    },
     toggleCollapse(ev) {
-      const ul = ev.target.closest("ul");
-      if (!this.isCollapsed) {
-        Object.values(ul.querySelectorAll("div")).map((el, idx, list) => {
-          if (idx !== 0) {
-            el.style.display = "none";
-          }
-        });
-        this.isCollapsed = !this.isCollapsed;
-      } else {
-        Object.values(ul.querySelectorAll("div")).map((el, idx, list) => {
-          if (idx !== 0) {
-            el.style.display = "block";
-          }
-        });
-        this.isCollapsed = !this.isCollapsed;
-      }
+      this.isCollapsed = !this.isCollapsed;
     },
   },
 };
@@ -68,7 +56,7 @@ ul li {
   cursor: pointer;
   width: fit-content;
 }
-.folder-name:hover{
+.folder-name:hover {
   background-color: #888;
 }
 </style>
